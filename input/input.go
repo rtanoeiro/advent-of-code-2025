@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"log"
 	"os"
+	"strconv"
 	"strings"
 )
 
@@ -18,4 +19,14 @@ func ReadInputFile(dayNumberString string) ([]string, error) {
 		return nil, err
 	}
 	return strings.Split(string(content), "\n"), nil
+}
+
+func ParseInt(number string) int {
+	numberInt, _ := strconv.Atoi(number)
+	return numberInt
+}
+
+func ParseInt64(number string) int64 {
+	numberInt, _ := strconv.ParseInt(number, 10, 64)
+	return numberInt
 }
