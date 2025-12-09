@@ -29,28 +29,12 @@ func Resolve() string {
 }
 
 func FindSum(inputData []string, part string) int {
-	// A list of lists, each outside list is a line of the input
-	// And each individual items inside the inner list are the elements of each line
+	// numLists contains how many items we have in a horizontal line, each item represents the first item of the vertical list
+	// We'll save each vertical list inside the numbers list
 	numLists := strings.Fields(inputData[0])
 	numbers := make([][]string, len(numLists))
 
 	if part == "1" {
-		for hIndex := range len(inputData) {
-			lineNumbers := strings.Fields(inputData[hIndex])
-			// For example, when hIndex = 0, we are in the first line of file.
-			// Each vIndex is a item in this first line, therefore, each vIndex is the first
-			// element for each vertical calculation, so we save that into lists
-			// By the end we turned a horizontal list into vertical lists
-			for vIndex := range numLists {
-				numbers[vIndex] = append(numbers[vIndex], lineNumbers[vIndex])
-			}
-
-		}
-
-	}
-
-	if part == "2" {
-		// The number of lines a file has is the number of operations we'll do with the numbers that makes each vertical list
 		for hIndex := range len(inputData) {
 			lineNumbers := strings.Fields(inputData[hIndex])
 			log.Printf("Items in line after split %v", lineNumbers)
@@ -63,11 +47,14 @@ func FindSum(inputData []string, part string) int {
 			}
 
 		}
-		log.Printf("rebuilding numbers for part 2")
-		for index, item := range numbers {
-			numbers[index] = buildNumber(item)
-		}
 	}
+
+	if part == "2" {
+		// inputData contains each row of numbers, each index is a row
+	}
+
+	log.Printf("Lists created from input: %v", numbers)
+	log.Printf("First List created: %v", numbers[0])
 
 	sum := 0
 	// Now that each new list represents the vertical items of the input, we can go over each one easily
